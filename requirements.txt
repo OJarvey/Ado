@@ -15,6 +15,7 @@ dill==0.3.8
 Django==5.1.4
 django-allauth==65.3.1
 django-bootstrap4==24.4
+django-countries==7.2.1
 django-crispy-forms==2.3
 django_sitemaps==2.0.1
 Flask==3.0.3
