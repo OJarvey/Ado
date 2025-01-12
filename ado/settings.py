@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-^h3js)h#r_zy%+9r@81j5)c+a5k#@tif)0^e+!)$rvjm&%5^+j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [' boutique-ado2025-cd284aea9a59.herokuapp.com/', 'localhost', ]
 
 
 # Application definition
@@ -138,13 +139,17 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
