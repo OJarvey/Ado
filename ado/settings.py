@@ -32,7 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'boutique-ado2025.herokuapp.com',
-    'boutique-ado2025-cd284aea9a59.herokuapp.com',
     'localhost',
     '127.0.0.1',
     ]
