@@ -201,7 +201,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'checkout/static'),  # Checkout static files
+    os.path.join(BASE_DIR, 'profiles/static'),  # Profiles static files
 ]
 
 
@@ -215,12 +217,19 @@ if 'USE_AWS' in os.environ:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    
+    # File Permissions
+    AWS_DEFAULT_ACL = None  # Ensures ACL is handled via storages.py
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+        "ACL": "public-read"  # Make sure files are readable
+    }
 
-    # Tell Django to use the custom storages for static & media
+    # Storage Classes
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
-    # Define static and media file locations in S3
+    # Static and Media File Locations in S3
     STATICFILES_LOCATION = 'static'
     MEDIAFILES_LOCATION = 'media'
 
